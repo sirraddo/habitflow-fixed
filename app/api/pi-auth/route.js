@@ -1,8 +1,7 @@
-// v2 force deploy
-import { NextRequest, NextResponse } from 'next/server'
+import { NextResponse } from 'next/server'
 
-export async function POST(req: NextRequest) {
-  const { accessToken } = await req.json()
+export async function POST(request) {
+  const { accessToken } = await request.json()
   if (!accessToken) {
     return NextResponse.json({ error: 'No token' }, { status: 400 })
   }
@@ -16,8 +15,8 @@ export async function POST(req: NextRequest) {
   }
 
   const piUser = await piRes.json()
-  return NextResponse.json({ 
-    success: true, 
-    user: { uid: piUser.uid, username: piUser.username } 
+  return NextResponse.json({
+    success: true,
+    user: { uid: piUser.uid, username: piUser.username }
   })
 }
